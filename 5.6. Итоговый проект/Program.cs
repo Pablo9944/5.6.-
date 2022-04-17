@@ -13,7 +13,7 @@ namespace _5._6.Итоговый_проект
         static void Main(string[] args)
         {
             var Anketa = EnterUser();
-            Print(Anketa.Name, Anketa.Surname, Anketa.Age, Anketa.Pets, Anketa.Nickname, Anketa.favcolors);
+            Print(Anketa);
         }
 
 
@@ -64,21 +64,32 @@ namespace _5._6.Итоговый_проект
                 {
                     if (char.ToUpper(key) == 'Д')
                     {
-                        Users.Pets = true;
-                        Console.Write("\nСколько у вас животных?: ");
-                        uint countPets = 0;
-                        string temp = Console.ReadLine();
-                        Check(temp, out countPets);
-                        if (countPets > 0)
+                        do
                         {
-                            Users.Nickname = new string[countPets];
-                            for (int i = 0; i < Users.Nickname.Length; i++)
+                            Users.Pets = true;
+                            Console.Write(Environment.NewLine+"Сколько у вас животных?: ");
+                            uint countPets = 0;
+                            string temp = Console.ReadLine();
+                            Check(temp, out countPets);
+                            if (countPets > 0)
                             {
-                                Console.Write("Как {0} - зовут: ", (i + 1));
-                                Users.Nickname[i] = Console.ReadLine();
+                                Users.Nickname = new string[countPets];
+                                for (int i = 0; i < Users.Nickname.Length; i++)
+                                {
+                                    Console.Write("Как {0} - зовут: ", (i + 1));
+                                    Users.Nickname[i] = Console.ReadLine();
+                                }
+                                break;
+
                             }
-                            break;
-                        }
+
+                            else if (countPets == 0)
+                            {
+                                flag = true;
+                            }
+                        } while (flag);
+                    
+                    
                     }
                         
                         if (char.ToUpper(key) == 'Н')
@@ -161,25 +172,25 @@ namespace _5._6.Итоговый_проект
             return age;
         }
 
-        static void Print (string Name, string Surname, uint Age, bool Pets, string[] Nickname, string[] favcolors)
+        static void Print ((string Name, string Surname, uint Age, bool Pets, string[] Nickname, string[] favcolors) Users)
         {
             Console.WriteLine();
             Console.WriteLine();
-            Console.Write($"\tВас зовут {Name}\n");
-            Console.Write($"\tВаша фамилия {Surname}\n");
-            Console.Write($"\tВаш возраст {Age}\n");
-            Console.Write($"\tНаличие животных {Pets}\n");
-            if (Pets == true)
+            Console.Write($"\tВас зовут {Users.Name}\n");
+            Console.Write($"\tВаша фамилия {Users.Surname}\n");
+            Console.Write($"\tВаш возраст {Users.Age}\n");
+            Console.Write($"\tНаличие животных {Users.Pets}\n");
+            if (Users.Pets == true)
             {
-                for (int i = 0; i < Nickname.Length; i++)
+                for (int i = 0; i < Users.Nickname.Length; i++)
                 {
-                    Console.Write($"\t{i+1}-го зовут {Nickname[i]}\n");
+                    Console.Write($"\t{i+1}-го зовут {Users.Nickname[i]}\n");
 
                 }
             }
-            for (int i = 0; i < favcolors.Length; i++)
+            for (int i = 0; i < Users.favcolors.Length; i++)
             {
-                Console.Write($"\t{i + 1} цвет {favcolors[i]}\n");
+                Console.Write($"\t{i + 1} цвет {Users.favcolors[i]}\n");
 
             }
         }
